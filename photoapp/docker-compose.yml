@@ -1,0 +1,17 @@
+services:
+
+  postgres:
+    image: postgres
+    env_file:
+      - path: .env
+        required: true  # default
+      - path: .env-template
+        required: false
+    environment:
+      POSTGRES_DB: ${APP_CONFIG__DB__POSTGRES_DB}
+      POSTGRES_USER: ${APP_CONFIG__DB__POSTGRES_USER}
+      POSTGRES_PASSWORD: ${APP_CONFIG__DB__POSTGRES_PASSWORD}
+    ports:
+      - "${APP_CONFIG__DB__POSTGRES_PORT}:5432"
+    volumes:
+      - /opt/pgdata:/var/lib/postgresql/data
