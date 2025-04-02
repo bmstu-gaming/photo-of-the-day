@@ -8,6 +8,7 @@ from sqlalchemy.orm import (
 )
 
 from .base import ModelBase
+from .mixins.id_int_pk import IdIntPKMixin
 
 posts_tablename = ''
 
@@ -15,7 +16,7 @@ if TYPE_CHECKING:
     from .post import Post
 
 
-class User(ModelBase):
+class User(IdIntPKMixin, ModelBase):
     username: Mapped[str] = mapped_column(unique=True)
 
     posts: Mapped[List["Post"]] = relationship(back_populates="user")
