@@ -1,5 +1,6 @@
-from pydantic import BaseModel
-from pydantic import ConfigDict
+from pydantic import (
+    BaseModel, ConfigDict
+)
 
 
 class UserBase(BaseModel):
@@ -11,7 +12,6 @@ class UserCreate(UserBase):
 
 
 class UserRead(UserBase):
-
     id: int
     # Reading from attrs to integrate with ORM models
     model_config = ConfigDict(

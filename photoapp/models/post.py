@@ -11,13 +11,14 @@ from sqlalchemy import DateTime
 from sqlalchemy.sql.expression import func
 
 from .base import ModelBase
+from .mixins.id_int_pk import IdIntPKMixin
 
 # Circular import fix - this will act as imported only on code editing
 # not runtime
 if TYPE_CHECKING:
     from .user import User
 
-class Post(ModelBase):
+class Post(IdIntPKMixin, ModelBase):
     user_id: Mapped[int] = mapped_column(ForeignKey(f"users.id"))
     title: Mapped[str] = mapped_column()
     description: Mapped[str] = mapped_column()

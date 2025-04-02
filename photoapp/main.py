@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 import uvicorn
 
 from fastapi import FastAPI
+# Increase JSON working speed
+from fastapi.responses import ORJSONResponse 
 
 from config.settings import settings
 from models import database_manager, ModelBase
@@ -25,6 +27,7 @@ async def lifespan(app: FastAPI):
 
 
 photo_app = FastAPI(
+    default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )
 photo_app.include_router(router)

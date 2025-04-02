@@ -7,7 +7,7 @@ from models import Post, User
 
 # TODO: add pagination (offset + limit)
 # TODO: add timestamp
-async def get_all_posts(session: AsyncSession) -> Sequence[User]:
+async def get_all_posts(session: AsyncSession) -> Sequence[Post]:
     """
     select p.id, p.title, p.description, p.image_path, u.username
     from users as u 
