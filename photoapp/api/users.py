@@ -1,14 +1,11 @@
-from typing import List, Annotated
-from fastapi import APIRouter, Depends
-
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List
+from fastapi import APIRouter
 
 from schemas.user import UserRead, UserCreate
-from models import database_manager
 
 import crud.users as crud_users
-# from crud.users import get_all_users, create_user
 
+from api.dependencies import session_dependency
 
 router = APIRouter(
     prefix="/users",
@@ -20,7 +17,7 @@ router = APIRouter(
 async def get_users(
     # session: AsyncSession = Depends(database_manager.session_getter)
     # Better way:
-    session: Annotated[AsyncSession, Depends(database_manager.session_getter)]
+    session: session_dependency
 ):
     users = await crud_users.get_all_users(session=session)
     return users
@@ -28,7 +25,7 @@ async def get_users(
 
 @router.post("", response_model=UserRead)
 async def create_user(
-    session: Annotated[AsyncSession, Depends(database_manager.session_getter)],
+    session: session_dependency,
     user_create: UserCreate,
 ):
     user = await crud_users.create_user(session=session, user_schema=user_create)

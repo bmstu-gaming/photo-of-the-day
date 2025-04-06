@@ -10,13 +10,14 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import DateTime
 from sqlalchemy.sql.expression import func
 
-from .base import ModelBase
-from .mixins.id_int_pk import IdIntPKMixin
+from models.base import ModelBase
+from models.mixins.id_int_pk import IdIntPKMixin
 
 # Circular import fix - this will act as imported only on code editing
-# not runtime
+# not runtime (required by user dependency)
 if TYPE_CHECKING:
-    from .user import User
+    from models.user import User
+
 
 class Post(IdIntPKMixin, ModelBase):
     user_id: Mapped[int] = mapped_column(ForeignKey(f"users.id"))
@@ -30,6 +31,5 @@ class Post(IdIntPKMixin, ModelBase):
     #     server_default=func.utcnow()
     # )
 
-    # when using annotations we need to declare the type imported from file
     user: Mapped["User"] = relationship(back_populates="posts")
 

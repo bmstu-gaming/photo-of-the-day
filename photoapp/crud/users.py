@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models import User
+from models.user import User
 from schemas.user import UserCreate
 
 # TODO: add pagination (offset + limit)

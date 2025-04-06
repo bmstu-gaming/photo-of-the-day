@@ -1,22 +1,24 @@
 from contextlib import asynccontextmanager
-
 import uvicorn
 
-from fastapi import FastAPI
-# Increase JSON working speed
-from fastapi.responses import ORJSONResponse 
+from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+from fastapi import FastAPI, Request, HTTPException
+# ORJSONResponse - Increase JSON working speed
+from fastapi.responses import ORJSONResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 from config.settings import settings
-from models import database_manager, ModelBase
-
+from database import database_manager
 from api import router
-
+from api.dependencies import session_dependency
 
 # New way to do thing on startup/shutdown
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # startup
-    # Uncomment this to autocreate tables on startup, however Alembic ir preferred
+
+    # Uncomment this to autocreate tables on startup, however Alembic is preferred
     # async with database_manager.engine.begin() as conn:
     #     # await conn.run_sync(ModelBase.metadata.create_all)
     #     # await conn.run_sync(ModelBase.metadata.drop_all)
@@ -29,6 +31,14 @@ async def lifespan(app: FastAPI):
 photo_app = FastAPI(
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
+)
+
+photo_app.add_middleware(SessionMiddleware, secret_key=settings.auth.secret_key)
+photo_app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=['*'],
+    allow_methods=['*'],
+    allow_headers=["*"]
 )
 photo_app.include_router(router)
 
