@@ -15,7 +15,6 @@ router = APIRouter(
 # TODO: add user responce model
 @router.get("", response_class=HTMLResponse)
 async def home_page(request: Request, user: user_dependency):
-    user = request.session.get('user')
     return templates.TemplateResponse(
         'home.html',
         {

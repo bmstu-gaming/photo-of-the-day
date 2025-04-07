@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 class User(IdIntPKMixin, ModelBase):
     sso_id: Mapped[int] = mapped_column(BigInteger, unique=True)
-    username: Mapped[str] = mapped_column(unique=True)
+    username: Mapped[str] = mapped_column()
     avatar_url: Mapped[str] = mapped_column()
 
     # TODO:

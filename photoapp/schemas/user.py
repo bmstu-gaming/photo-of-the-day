@@ -16,6 +16,7 @@ class UserCreate(UserBase):
 
 class UserRead(UserBase):
     id: int
+    
     # Reading from attrs to integrate with ORM models
     model_config = ConfigDict(
         from_attributes=True,

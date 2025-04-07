@@ -5,7 +5,12 @@ from starlette.responses import RedirectResponse
 
 from config.settings import settings
 
-from api.dependencies import templates
+from api.dependencies import templates, session_dependency
+from api.auth import save_user_session
+import crud.users as crud_users
+
+from schemas.user import UserCreate
+
 
 router = APIRouter(
     prefix="/github",
@@ -35,30 +40,34 @@ oauth.register(
 
 # Used as callback for github
 @router.get("/auth", name="github_auth")
-async def authorize(request: Request):
+async def authorize(
+    request: Request,
+    session: session_dependency
+):
+    # Getting token (required only to get user info, we do not save it)
     try:
         token = await oauth.github.authorize_access_token(request)
-
     except OAuthError as e:
         return templates.TemplateResponse(
-            'error.html',
-            {
-                'error_message': e.error
-            }
+            'error.html', {'error_message': e.error}
         )
+    # Getting user info
     user = await oauth.github.userinfo(token=token)
-    print(user)
-    if user:
-        request.session['user'] = {
-            'id': dict(user)['id'],
-            'username': dict(user)['login'],
-        }
+    if not user:
+        return templates.TemplateResponse(
+            'error.html', {'error_message': "Could not get user info!"}
+        )
+    user_dict = dict(user)
     
-    # To save to database:
+    save_user_session(request=request, user_id=user_dict['id'])
+    
+    user_schema = UserCreate(
+        sso_id=user_dict['id'],
+        username=user_dict['login'],
+        avatar_url=user_dict['avatar_url']
+    )
 
-    # sso_id = user['id']
-    # username = user['login']
-    # avatar_url = user['https://avatars.githubusercontent.com/u/37626963?v=4']
+    await crud_users.create_user_if_not_exist(session=session, user_schema=user_schema)
 
     return RedirectResponse(url='/home')
 

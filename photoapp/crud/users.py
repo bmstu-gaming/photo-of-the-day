@@ -28,7 +28,7 @@ async def get_user_by_id(
     SELECT id, username from users
     WHERE id = :user_id;
     """
-    statement = select(User.id, User.username).where(User.sso_id == user_id)
+    statement = select(User.id, User.sso_id, User.username, User.avatar_url).where(User.sso_id == user_id)
     user = await session.execute(statement)
     user = user.first()
     if not user:
@@ -42,9 +42,25 @@ async def create_user(
 ) -> User:
     # load to User (user_schema validates everything)
     new_user = User(**user_schema.model_dump())
-    session.add(new_user)
-    await session.commit()
+    try:
+        session.add(new_user)
+        await session.commit()
+        # refresh data when creating
+        await session.refresh(new_user)
+        return new_user
+    except:
+        session.rollback()
+        raise
 
-    # refresh data when creating
-    await session.refresh(new_user)
+
+async def create_user_if_not_exist(
+    session: AsyncSession,
+    user_schema: UserCreate
+) -> User:
+    
+    db_user = await get_user_by_id(session=session, user_id=user_schema.sso_id)
+    # TODO: else, if user exists - update user info
+    if db_user:
+        return db_user
+    new_user = await create_user(session=session, user_schema=user_schema)
     return new_user

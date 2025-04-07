@@ -6,14 +6,14 @@
     <body>
         {% if user %}
             <!-- <h2>Welcome, {{ user['username'] }}#{{ user['discriminator'] }}</h2> -->
-            <!-- <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.png" alt="Avatar" /> -->
             
-            <h2>Welcome, {{ user['username'] }} ({{ user['id'] }})</h2>
-
+            <h2>Welcome, {{ user['username'] }} (ID: {{ user['id'] }})</h2>
+            <img src='{{ user["avatar_url"] }}' alt="Avatar" />
+            
             <a href="/auth/logout">Logout</a>
         {% else %}
             <h2>Not logged in</h2>
-            <a href="discord/login">Login with Discord</a>
+            <a href="discord/login">Login with Discord</a><br>
             <a href="github/login">Login with Github</a>
         {% endif %}
     </body>

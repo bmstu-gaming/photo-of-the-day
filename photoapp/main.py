@@ -7,6 +7,8 @@ from fastapi import FastAPI, Request, HTTPException
 # ORJSONResponse - Increase JSON working speed
 from fastapi.responses import ORJSONResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
+
 
 from config.settings import settings
 from database import database_manager
@@ -40,6 +42,13 @@ photo_app.add_middleware(
     allow_methods=['*'],
     allow_headers=["*"]
 )
+
+# NOTE: may be better way?
+photo_app.add_middleware(
+    TrustedHostMiddleware, allowed_hosts=["bmstu.org", "*.bmstu.org", "localhost"]
+)
+
+
 photo_app.include_router(router)
 
 
