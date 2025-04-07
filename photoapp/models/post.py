@@ -25,11 +25,10 @@ class Post(IdIntPKMixin, ModelBase):
     description: Mapped[str] = mapped_column()
     image_path: Mapped[str] = mapped_column()
     
-    # TODO:
-    # date_created: Mapped[datetime] = mapped_column(
-    #     DateTime(timezone=True),
-    #     server_default=func.utcnow()
-    # )
+    date_created: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now()
+    )
 
     user: Mapped["User"] = relationship(back_populates="posts")
 

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import (
     BaseModel, ConfigDict
 )
@@ -8,10 +10,11 @@ class PostBase(BaseModel):
     title: str
     description: str
     image_path: str
+    date_created: datetime
 
 
 class PostCreate(PostBase):
-    pass 
+    pass
 
 
 class PostRead(BaseModel):

@@ -3,8 +3,8 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from models.post import Post
-from models.user import User
+from models import Post
+from models import User
 
 # TODO: add pagination (offset + limit)
 # TODO: add timestamp

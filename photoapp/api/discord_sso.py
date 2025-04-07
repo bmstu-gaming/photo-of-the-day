@@ -5,7 +5,11 @@ from starlette.responses import RedirectResponse
 
 from config.settings import settings
 
-from api.dependencies import templates
+from api.dependencies import templates, session_dependency
+
+from schemas.user import UserCreate
+import crud.users as crud_users
+
 
 router = APIRouter(
     prefix="/discord",
@@ -27,18 +31,22 @@ oauth.register(
     authorize_url='https://discord.com/oauth2/authorize',
     userinfo_endpoint='https://discord.com/api/users/@me',
     client_kwargs={
-        'scope': 'identify email',
+        'scope': 'identify',
         'timeout': 30,
     },
 )
 
 
 # Used as callback for discord
+# This is the URL that discord will redirect to after the user has authorized the app
 @router.get("/auth", name="discord_auth")
-async def authorize(request: Request):
+async def authorize(
+    request: Request,
+    session: session_dependency
+):
+    # Getting token
     try:
         token = await oauth.discord.authorize_access_token(request)
-
     except OAuthError as e:
         return templates.TemplateResponse(
             'error.html',
@@ -46,12 +54,40 @@ async def authorize(request: Request):
                 'error_message': e.error
             }
         )
-    # user = token.get('userinfo')
-    # user = await get_user_data(oauth=oauth, token=token)
-    user = await get_user_data(oauth=oauth, token=token)
-    print(user)
-    if user:
-       request.session['user'] = dict(user)
+    # Getting user info
+    user = await oauth.discord.userinfo(token=token)
+    if not user:
+        return templates.TemplateResponse(
+            'error.html',
+            {
+                'error_message': "Could not get user info!"
+            }
+        )
+    
+    user_dict = dict(user)
+    request.session['user'] = {
+        'id': user_dict['id'],
+        'username': user_dict['username'],
+    }
+    
+    db_user = await crud_users.get_user_by_id(session=session, user_id=int(user_dict['id']))
+    if not db_user:
+        # User not found in DB, create a new one
+        new_user = UserCreate(
+            sso_id=user_dict['id'],
+            username=user_dict['username'],
+            avatar_url=f"https://cdn.discordapp.com/avatars/{user_dict['id']}/{user_dict['avatar']}.png"
+        )
+        user_created = await crud_users.create_user(session=session, user_schema=new_user)
+        if not user_created:
+            return templates.TemplateResponse(
+                'error.html',
+                {
+                    'error_message': "Could not create new user"
+                }
+            )
+    # TODO: else update user info
+    
     return RedirectResponse(url='/home')
 
 
@@ -59,20 +95,3 @@ async def authorize(request: Request):
 async def login(request: Request):
     redirect_uri = request.url_for("discord_auth")
     return await oauth.discord.authorize_redirect(request, redirect_uri)
-
-
-@router.get("/logout")
-async def logout(request: Request):
-    request.session.pop('user', None)
-    return RedirectResponse(url='/home')
-
-
-async def get_user_data(oauth, token):
-    """
-    This is the way to get user info
-    """
-    response = await oauth.discord.userinfo(token=token)
-    # if response.status != 200:
-    #     return None
-    print(response)
-    return response

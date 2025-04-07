@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from schemas.user import UserRead, UserCreate
 
@@ -21,6 +21,17 @@ async def get_users(
 ):
     users = await crud_users.get_all_users(session=session)
     return users
+
+
+@router.get("/{user_id}", response_model=UserRead)
+async def get_user_by_id(
+    session: session_dependency,
+    user_id: int,
+):
+    user = await crud_users.get_user_by_id(session=session, user_id=user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user
 
 
 @router.post("", response_model=UserRead)

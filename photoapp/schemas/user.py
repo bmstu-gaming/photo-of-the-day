@@ -3,8 +3,11 @@ from pydantic import (
 )
 
 
+# All users come from external auth (SSO), so we keep sso_id and username
 class UserBase(BaseModel):
+    sso_id: int
     username: str
+    avatar_url: str
 
 
 class UserCreate(UserBase):

@@ -8,6 +8,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class AuthConfig(BaseModel):
     discord_client_id: str
     discord_client_secret: str
+
+    github_client_id: str
+    github_client_secret: str
+
     secret_key: str
 
 

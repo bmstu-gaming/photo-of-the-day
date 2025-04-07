@@ -5,13 +5,16 @@
     </head>
     <body>
         {% if user %}
-            <h2>Welcome, {{ user['username'] }}#{{ user['discriminator'] }}</h2>
-            <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.png" alt="Avatar" />
-            <p>Email: {{ user.get('email') }}</p>
-            <a href="/discord/logout">Logout</a>
+            <!-- <h2>Welcome, {{ user['username'] }}#{{ user['discriminator'] }}</h2> -->
+            <!-- <img src="https://cdn.discordapp.com/avatars/{{ user['id'] }}/{{ user['avatar'] }}.png" alt="Avatar" /> -->
+            
+            <h2>Welcome, {{ user['username'] }} ({{ user['id'] }})</h2>
+
+            <a href="/auth/logout">Logout</a>
         {% else %}
             <h2>Not logged in</h2>
             <a href="discord/login">Login with Discord</a>
+            <a href="github/login">Login with Github</a>
         {% endif %}
     </body>
 </html>
