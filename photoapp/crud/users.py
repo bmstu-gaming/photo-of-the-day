@@ -1,7 +1,5 @@
 from typing import Sequence
 
-from fastapi import HTTPException, status
-
 from sqlalchemy import select, and_, update
 from sqlalchemy.ext.asyncio import AsyncSession
 

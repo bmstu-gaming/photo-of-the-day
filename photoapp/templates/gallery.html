@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gallery</title>
+    </head>
+    <body>
+        {% if not user %}
+        Login for more features:<br><br>
+        <a href="/home">Login page</a><br>
+        {% else %}
+        <a href="/upload">Upload your photo</a><br>
+        <a href="/home">Back home</a><br>
+        {% endif %}
+
+        Gallery will be here
+
+    </body>
+</html>

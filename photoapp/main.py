@@ -3,17 +3,15 @@ import uvicorn
 
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI
 # ORJSONResponse - Increase JSON working speed
-from fastapi.responses import ORJSONResponse, HTMLResponse
-from fastapi.templating import Jinja2Templates
+from fastapi.responses import ORJSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 
 
 from config.settings import settings
 from database import database_manager
 from api import router
-from api.dependencies import session_dependency
 
 # New way to do thing on startup/shutdown
 @asynccontextmanager
@@ -43,10 +41,12 @@ photo_app.add_middleware(
     allow_headers=["*"]
 )
 
-# NOTE: may be better way?
-photo_app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=["bmstu.org", "*.bmstu.org", "localhost"]
-)
+
+# We can setup trusted hosts via settings
+if settings.app.allowed_hosts is not None:
+    photo_app.add_middleware(
+        TrustedHostMiddleware, allowed_hosts=settings.app.allowed_hosts.split(',')
+    )
 
 
 photo_app.include_router(router)

@@ -16,8 +16,9 @@ class AuthConfig(BaseModel):
 
 
 class AppConfig(BaseModel):
-    host: str = "127.0.0.1"
-    port: int = 8000
+    host: str
+    port: int
+    allowed_hosts: str = None
 
 
 class DBConfig(BaseModel):
@@ -70,7 +71,7 @@ class Settings(BaseSettings):
         env_prefix="APP_CONFIG__",
     )
 
-    app: AppConfig = AppConfig()
+    app: AppConfig
     db: DBConfig
     auth: AuthConfig
 

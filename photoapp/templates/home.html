@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Discord OAuth2 with FastAPI</title>
+        <title>Home page</title>
     </head>
     <body>
         {% if user %}
-            <!-- <h2>Welcome, {{ user['username'] }}#{{ user['discriminator'] }}</h2> -->
-            
-            <h2>Welcome, {{ user['username'] }} (ID: {{ user['id'] }})</h2>
+            <h2>Welcome, {{ user['username'] }} (logged in via: {{ user['sso_provider'] }})</h2>
             <img src='{{ user["avatar_url"] }}' alt="Avatar" />
-            
             <a href="/auth/logout">Logout</a>
         {% else %}
             <h2>Not logged in</h2>
             <a href="discord/login">Login with Discord</a><br>
             <a href="github/login">Login with Github</a>
         {% endif %}
+
+        <br><a href="/gallery">To gallery</a>
     </body>
 </html>
