@@ -11,6 +11,7 @@ import crud.users as crud_users
 
 from schemas.user import UserCreate
 
+PROVIDER='github'
 
 router = APIRouter(
     prefix="/github",
@@ -59,10 +60,11 @@ async def authorize(
         )
     user_dict = dict(user)
     
-    save_user_session(request=request, user_id=user_dict['id'])
+    save_user_session(request=request, user_id=user_dict['id'], provider=PROVIDER)
     
     user_schema = UserCreate(
         sso_id=user_dict['id'],
+        sso_provider=PROVIDER,
         username=user_dict['login'],
         avatar_url=user_dict['avatar_url']
     )

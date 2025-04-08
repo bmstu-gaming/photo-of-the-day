@@ -10,7 +10,7 @@ from .dependencies import session_dependency
 
 router = APIRouter(
     prefix="/posts",
-    tags=["Users"],
+    tags=["Posts"],
 )
 
 

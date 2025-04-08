@@ -23,11 +23,12 @@ async def get_current_user(
     user = request.session.get("user")
     if not user:
         return None
-    db_user = await crud_users.get_user_by_id(session=session, user_id=user['id'])
-    print(db_user)
+    db_user = await crud_users.get_sso_user(
+        session=session, 
+        user_sso_id=user['id'], 
+        user_sso_provider=user['provider']
+    )
     return db_user
 
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
-
-

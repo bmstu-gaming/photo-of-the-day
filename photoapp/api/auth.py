@@ -15,7 +15,8 @@ async def logout(request: Request):
 
 
 # Save user id in session after successfull SSO auth
-def save_user_session(request: Request, user_id: int) -> None:
+def save_user_session(request: Request, user_id: int, provider: str) -> None:
     request.session['user'] = {
-        'id': user_id
+        'id': user_id,
+        'provider': provider
     }

@@ -6,7 +6,7 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship    
 )
-from sqlalchemy import DateTime, BigInteger
+from sqlalchemy import DateTime, BigInteger, UniqueConstraint
 from sqlalchemy.sql.expression import func
 
 from models.base import ModelBase
@@ -18,9 +18,17 @@ if TYPE_CHECKING:
 
 
 class User(IdIntPKMixin, ModelBase):
-    sso_id: Mapped[int] = mapped_column(BigInteger, unique=True)
+    __table_args__ = (
+        UniqueConstraint("sso_id", "sso_provider"),
+    )
+
+    sso_id: Mapped[int] = mapped_column(BigInteger)
+    sso_provider: Mapped[str] = mapped_column()
     username: Mapped[str] = mapped_column()
     avatar_url: Mapped[str] = mapped_column()
+
+
+    
 
     # TODO:
     # time_created: Mapped[datetime] = mapped_column(

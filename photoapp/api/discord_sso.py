@@ -12,6 +12,8 @@ from schemas.user import UserCreate
 import crud.users as crud_users
 
 
+PROVIDER = 'discord'
+
 router = APIRouter(
     prefix="/discord",
     tags=["Discord SSO"]
@@ -61,12 +63,13 @@ async def authorize(
     user_dict = dict(user)
 
     # We save id in session
-    save_user_session(request=request, user_id=int(user_dict['id']))
+    save_user_session(request=request, user_id=int(user_dict['id']), provider=PROVIDER)
 
     user_schema = UserCreate(
         sso_id=int(user_dict['id']),
+        sso_provider=PROVIDER,
         username=user_dict['username'],
-        avatar_url=f"https://cdn.discordapp.com/avatars/{user_dict['id']}/{user_dict['avatar']}.png"
+        avatar_url=f"https://cdn.discordapp.com/avatars/{user_dict['id']}/{user_dict['avatar']}.png",
     )
 
     await crud_users.create_user_if_not_exist(session=session, user_schema=user_schema)

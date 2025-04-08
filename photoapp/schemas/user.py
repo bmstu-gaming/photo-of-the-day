@@ -3,17 +3,24 @@ from pydantic import (
 )
 
 
-# All users come from external auth (SSO), so we keep sso_id and username
-class UserBase(BaseModel):
-    sso_id: int
+# These values can change
+class UserUpdate(BaseModel):
     username: str
     avatar_url: str
 
 
+# Identificators of SSO user
+class UserBase(UserUpdate):
+    sso_id: int
+    sso_provider: str
+
+
+# Same as UserBase, no additional fields
 class UserCreate(UserBase):
     pass
 
 
+# UserRead is the same as UserBase, but with id field
 class UserRead(UserBase):
     id: int
     
