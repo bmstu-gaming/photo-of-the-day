@@ -1,0 +1,91 @@
+.auth-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.login-message {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 18px;
+}
+
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    transition: opacity 0.2s ease;
+}
+
+.auth-button:hover {
+    opacity: 0.9;
+}
+
+.discord {
+    background: #5865F2;
+}
+
+.github {
+    background: #181717;
+}
+
+.auth-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 15px;
+    display: flex;  
+    flex-direction: column;  /* Stack children vertically */
+    gap: 10px;               /* Add space between lines */
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.username {
+    font-size: 20px;
+    color: #333;
+    display: inline-block;
+}
+
+.logout-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.logout-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+
+.user-info-line {
+    display: flex; /* Keep inline items aligned horizontally */
+    align-items: center;
+    gap: 10px;
+}

@@ -4,125 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Gallery</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f8f9fa;
-            padding-top: 70px;
-        }
-
-        .post {
-            display: flex;
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .profile-pic {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-
-        .post-content {
-            flex-grow: 1;
-        }
-
-        .author-name {
-            margin: 0 0 8px 0;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .post-image {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-
-        .post-description {
-            margin: 0 0 8px 0;
-            color: #333;
-            font-size: 15px;
-        }
-
-        .notes-count {
-            color: #666;
-            font-size: 14px;
-            margin: 0;
-        }
-        .top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .logo {
-            font-weight: 600;
-            font-size: 20px;
-            color: #333;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .username {
-            color: #333;
-            font-size: 15px;
-        }
-
-        .profile-pic.small {
-            width: 36px;
-            height: 36px;
-        }
-
-        /* Link style */
-        .nav-link {
-            color: #666;
-            text-decoration: none;
-            font-size: 15px;
-            transition: color 0.2s ease;
-            margin-right: 8px;
-        }
-
-        .nav-link:hover {
-            color: #333;
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/gallery.css">
+    <link rel="stylesheet" href="/static/css/common.css">
 </head>
 <body>
-    <div class="top-bar">
-        <div class="logo">My Photo Gallery</div>
-        <div class="user-info">
-            {% if user %}
-            <span class="username">{{ user['username'] }}</span>
-            <img src="{{ user['avatar_url'] }}" alt="Profile" class="profile-pic small">
-            <a href="/home" class="nav-link">Home</a>
-            {% else %}
-            <a href="/home" class="nav-link">Login</a>
-            {% endif %}
-        </div>
-    </div>
-
     
+    {% include 'top_bar.html' %}
     <!-- TODO: template posts -->
     <div class="post">
         <img src="profile-placeholder.jpg" alt="Profile" class="profile-pic">

@@ -1,0 +1,83 @@
+/* Common app style */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    padding-top: 70px;
+}
+/* Top menu styles */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 20px;
+    color: #333;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.username {
+    color: #333;
+    font-size: 15px;
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-pic.small {
+    width: 36px;
+    height: 36px;
+}
+
+/* Link style for top menu */
+.nav-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s ease;
+    margin-right: 8px;
+}
+
+.nav-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* TODO: prettify it */
+.error-message {
+    background-color: #fff;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid #a6a6a6;
+    color: #dc3545;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+}

@@ -1,19 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Home page</title>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+    <div class="auth-container">
         {% if user %}
-            <h2>Welcome, {{ user['username'] }} (logged in via: {{ user['sso_provider'] }})</h2>
-            <img src='{{ user["avatar_url"] }}' alt="Avatar" />
-            <a href="/auth/logout">Logout</a>
+            <!-- Logged in state -->
+            <div class="user-info">
+                <div class="user-info-line">
+                    <img src="{{ user['avatar_url'] }}" alt="Profile" class="profile-pic">
+                    <p class="username">Welcome, {{ user['username'] }}!</p>
+                </div>
+                <div class="user-info-line">
+                    <a href="/gallery" class="logout-link">To gallery</a>
+                    <a href="auth/logout" class="logout-link">Log out</a>
+                </div>
+            </div>
         {% else %}
-            <h2>Not logged in</h2>
-            <a href="discord/login">Login with Discord</a><br>
-            <a href="github/login">Login with Github</a>
+            <!-- Not logged in state -->
+            <div class="login-message">Please, login</div>
+            <div class="auth-buttons">
+                <a href="discord/login" class="auth-button discord">
+                    <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384f934b80629652df5_Discord-logo-white.png" alt="Discord">
+                    <span>Login with Discord</span>
+                </a>
+                <a href="github/login" class="auth-button github">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                    <span>Login with GitHub</span>
+                </a>
+            </div>
+            <a href="/gallery" class="logout-link">To gallery</a>
         {% endif %}
-
-        <br><a href="/gallery">To gallery</a>
-    </body>
+    </div>
+</body>
 </html>

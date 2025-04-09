@@ -4,6 +4,7 @@ import uvicorn
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 # ORJSONResponse - Increase JSON working speed
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -50,6 +51,7 @@ if settings.app.allowed_hosts is not None:
 
 
 photo_app.include_router(router)
+photo_app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 if __name__ == "__main__":

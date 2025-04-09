@@ -1,0 +1,44 @@
+/* Post container styles on gallery page */
+.post {
+    display: flex;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.post-content {
+    flex-grow: 1;
+}
+
+.author-name {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.post-description {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 15px;
+}
+
+.notes-count {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}

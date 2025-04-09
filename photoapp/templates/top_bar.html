@@ -1,0 +1,14 @@
+<div class="top-bar">
+    <div class="logo">My Photo Gallery</div>
+    <div class="user-info">
+        <a href="/gallery" class="nav-link">To gallery</a>
+        {% if user %}
+        <a href="/upload" class="nav-link">Upload pictures</a>
+        <span class="username">{{ user['username'] }}</span>
+        <img src="{{ user['avatar_url'] }}" alt="Profile" class="profile-pic small">
+        <a href="/home" class="nav-link">Home</a>
+        {% else %}
+        <a href="/home" class="nav-link">Login</a>
+        {% endif %}
+    </div>
+</div>
