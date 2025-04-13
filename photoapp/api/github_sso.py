@@ -71,7 +71,7 @@ async def authorize(
 
     await crud_users.create_user_if_not_exist(session=session, user_schema=user_schema)
 
-    return RedirectResponse(url='/home')
+    return RedirectResponse(url='/gallery')
 
 
 @router.get("/login")

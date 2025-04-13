@@ -11,13 +11,7 @@ router = APIRouter(
     tags=['Upload']
 )
 
-
-@router.get("", response_class=HTMLResponse)
-async def home_page(request: Request, user: user_dependency):
-    return templates.TemplateResponse(
-        'upload.html',
-        {
-            'request': request,
-            'user': user
-        }
-    )
+# TODO: add FileUpload
+# @router.get("", response_class=HTMLResponse)
+# async def upload(request: Request, user: user_dependency):
+#     pass

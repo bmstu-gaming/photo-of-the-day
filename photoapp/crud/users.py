@@ -58,7 +58,7 @@ async def create_user(
         return new_user
     except:
         # In case anything breaks - rollback
-        session.rollback()
+        await session.rollback()
         raise
 
 

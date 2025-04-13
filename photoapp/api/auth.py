@@ -11,7 +11,7 @@ router = APIRouter(
 @router.get("/logout")
 async def logout(request: Request):
     request.session.pop('user', None)
-    return RedirectResponse(url='/home')
+    return RedirectResponse(url='/gallery')
 
 
 # Save user id in session after successfull SSO auth

@@ -13,7 +13,7 @@ router = APIRouter(
 
 
 @router.get("", response_class=HTMLResponse)
-async def home_page(request: Request, user: user_dependency):
+async def gallery(request: Request, user: user_dependency):
     return templates.TemplateResponse(
         'gallery.html',
         {
