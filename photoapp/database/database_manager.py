@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import (
 
 from config.settings import settings
 
+
 # TODO: More engine settings
 class DatabaseManager:
     def __init__(

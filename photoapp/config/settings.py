@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 from pydantic import PostgresDsn
 from pydantic import computed_field, validator
@@ -5,9 +7,21 @@ from pydantic import computed_field, validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+class AuthConfig(BaseModel):
+    discord_client_id: str
+    discord_client_secret: str
+
+    github_client_id: str
+    github_client_secret: str
+
+    secret_key: str
+
+
 class AppConfig(BaseModel):
-    host: str = "127.0.0.1"
-    port: int = 8000
+    host: str
+    port: int
+    host_pictures_path: str
+    allowed_hosts: Optional[str] = None
 
 
 class DBConfig(BaseModel):
@@ -20,8 +34,8 @@ class DBConfig(BaseModel):
     # Generate url base of postgres settings
     # NOTE: Pydantic > 2.0.0 way (not supported in Pydantic V1)
     @computed_field
-    @property
-    def url(self) -> PostgresDsn:
+    # @property  # if not set implicitly will work too
+    def url(self) -> str:  # PostgresDsn
         return f'postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}'
 
     # NOTE: Older way (Pydantic V1), also validator is deprecated in pydantic v2
@@ -60,8 +74,9 @@ class Settings(BaseSettings):
         env_prefix="APP_CONFIG__",
     )
 
-    app: AppConfig = AppConfig()
+    app: AppConfig
     db: DBConfig
+    auth: AuthConfig
 
 
 settings = Settings()

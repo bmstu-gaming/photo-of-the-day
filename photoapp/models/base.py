@@ -1,7 +1,7 @@
 from inflection import underscore
 
 from sqlalchemy import MetaData
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, declared_attr
+from sqlalchemy.orm import DeclarativeBase, declared_attr
 
 from config.settings import settings
 
@@ -18,10 +18,3 @@ class ModelBase(DeclarativeBase):
     @declared_attr
     def __tablename__(cls) -> str:
         return f"{underscore(cls.__name__)}s"
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-
-
-
-
-

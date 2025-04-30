@@ -1,12 +1,11 @@
-__all__ = (
-    "database_manager",
-    "Base",
+__all__ = [
+    "ModelBase",
     "User",
     "Post",
-)
+    "IdIntPKMixin",
+]
 
-from .database_manager import database_manager
-from .base import ModelBase
-
-from .user import User
-from .post import Post
+from models.base import ModelBase
+from models.user import User
+from models.post import Post
+from models.mixins.id_int_pk import IdIntPKMixin

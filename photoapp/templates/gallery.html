@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMSTU</title>
+    <link rel="stylesheet" href="/static/css/gallery.css">
+</head>
+<body>
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+        {% if user %}
+            <span class="username">Welcome, {{ user.username }}</span>
+            <img src="{{ user.avatar_url }}" class="user-avatar" alt="Avatar">
+            <a href="/auth/logout">Logout</a>
+        {% else %}
+            <a href="/github/login">
+                <img src="/static/github.gif" class="icon" alt=""> Login with Github
+            </a>
+            <a href="/discord/login">
+                <img src="/static/discord.gif" class="icon" alt=""> Login with Discord
+            </a>
+        {% endif %}
+    </div>
+    <h1>Resource Directory of<br>"Bauman's Ministry of Secret Time-traveling UFOs"</h1>
+    <!-- Original Links Block -->
+    <div class="container">
+        <!-- Original blocks with Ilgiz, Oleg, etc. -->
+        <!-- ... keep original blocks exactly as they were ... -->
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+        {% if user %}
+            <form class="upload-form" id="uploadForm">
+                <input type="file" id="photoInput" accept="image/*">
+                <div id="dropZone">Drag photo here or click to select</div>
+                <img id="preview" src="#" alt="Preview" style="display: none;">
+                <br>
+                Title: <input type="text" name="title" size="40"><br>
+                Description: <textarea name="description" rows="3" cols="40"></textarea><br>
+                <input type="submit" value="Upload Photo">
+            </form>
+        {% else %}
+            <p>Login to upload photos</p>
+        {% endif %}
+    </div>
+
+    <!-- Photo Posts -->
+    <!-- TODO: uncomment -->
+    <!-- {% for post in posts %}
+    <div class="post">
+        <img src="{{ post.avatar_url }}" class="post-avatar" alt="User avatar">
+        <h1>Photo of the Day — {{ post.date }}</h1>
+        <img class="photo-of-the-day" src="{{ post.image_url }}" alt="Photo of the Day">
+        <figcaption>{{ post.caption }}</figcaption>
+    </div>
+    {% endfor %} -->
+
+
+    <div class="post">
+        <img src="/static/img/avatar1.jpg" class="post-avatar" alt="User avatar">
+       
+        <h1>Photo of the Day — Test 1</h1>
+        <img class="photo-of-the-day" src="/static/img/post1.jpg" alt="Photo of the Day">
+        <figcaption>Test</figcaption>
+    
+    </div>
+
+    <div class="post">
+        <img src="/static/img/avatar2.jpg" class="post-avatar" alt="User avatar">
+        
+        <h1>Photo of the Day — Test 1</h1>
+        <img class="photo-of-the-day" src="/static/img/post2.jpg" alt="Photo of the Day">
+        <figcaption>Test</figcaption>
+        
+    </div>
+
+    <script src="/static/js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.menu-bar {
+    background: #000;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.menu-bar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.menu-bar img.icon {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.menu-bar .username {
+    color: white;
+    margin: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.menu-bar .user-avatar {
+    width: 5vmin;
+    vertical-align: middle;
+}
+
+
+.container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+h1 {
+	width: 100%;
+	text-align: center;
+}
+.block {
+	background-color: #ffffff;
+	border: 2px solid #000;
+	margin: 20px;
+	padding: 10px;
+	text-align: left;
+	width: 45%;
+	box-sizing: border-box;
+}
+h2 {
+	background-color: #000;
+	color: #fff;
+	padding: 5px;
+	margin: 0;
+}
+ul {
+	list-style-type: none;
+	padding: 10px;
+	margin: 0;
+}
+li {
+	margin: 5px 0;
+}
+a {
+	text-decoration: none;
+	color: #0000ee;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+.photo-of-the-day {
+    width: 80vmin;
+}
+
+.user-avatar {
+    width: 10vmin;
+}
+
+.post {
+    /* background: white; */
+    /* border: 2px solid #000; */
+    margin: 20px auto;
+    padding: 10px;
+    width: 80%;
+    /* overflow: auto;  */
+    /* Contain floated elements */
+}
+
+.post-avatar {
+    float: left;
+    /* margin: 5px 10px 5px 5px; */
+    /* margin-right: 10px;
+    width: 48px;
+    height: 48px; */
+    height: 10vmin;
+    vertical-align: top;
+}
+
